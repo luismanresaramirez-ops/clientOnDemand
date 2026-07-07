@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -14,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 @Component({
   selector: 'app-filters-panel',
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatExpansionModule,
