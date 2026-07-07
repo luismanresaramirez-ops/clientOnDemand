@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './login.scss'
 })
 export class Login {
+
+  private router = inject(Router);
   login = '';
   password = '';
   hidePassword = true;
@@ -30,5 +34,6 @@ export class Login {
 
     // Ici plus tard :
     // appel Spring Boot ou fallback si Okta indisponible
+    this.router.navigate(['/search']);
   }
 }

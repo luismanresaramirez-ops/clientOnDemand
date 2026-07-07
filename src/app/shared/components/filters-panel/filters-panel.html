@@ -1,0 +1,95 @@
+<mat-card class="search-card">
+  <div class="header">
+    <div>
+      <h2>Recherche de documents</h2>
+      <p>Rechercher un document par code et affiner avec des filtres.</p>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="search()">
+    <div class="main-search">
+      <mat-form-field appearance="outline">
+        <mat-label>Code document</mat-label>
+        <input matInput formControlName="documentCode" placeholder="Ex : FAC-2026-001245" />
+        <mat-icon matSuffix>description</mat-icon>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">
+        <mat-icon>search</mat-icon>
+        Rechercher
+      </button>
+    </div>
+
+    <mat-expansion-panel class="filters-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>filter_list</mat-icon>
+          Filtres avancés
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="filters-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Liste de dossiers</mat-label>
+          <mat-select formControlName="folderList">
+            <mat-option *ngFor="let folder of folders" [value]="folder">
+              {{ folder }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date de création - du</mat-label>
+          <input matInput [matDatepicker]="fromPicker" formControlName="creationDateFrom" />
+          <mat-datepicker-toggle matIconSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date de création - au</mat-label>
+          <input matInput [matDatepicker]="toPicker" formControlName="creationDateTo" />
+          <mat-datepicker-toggle matIconSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Numéro de contrat</mat-label>
+          <input matInput formControlName="contractNumber" placeholder="Ex : 654123987" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nom du partenaire</mat-label>
+          <input matInput formControlName="partnerName" placeholder="Ex : Renault Retail Group" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Filiale</mat-label>
+          <mat-select formControlName="subsidiary">
+            <mat-option *ngFor="let subsidiary of subsidiaries" [value]="subsidiary">
+              {{ subsidiary }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Code société</mat-label>
+          <mat-select formControlName="companyCode">
+            <mat-option *ngFor="let code of companyCodes" [value]="code">
+              {{ code }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button type="button" (click)="reset()">
+          Réinitialiser
+        </button>
+
+        <button mat-flat-button color="primary" type="submit">
+          Appliquer les filtres
+        </button>
+      </div>
+    </mat-expansion-panel>
+  </form>
+</mat-card>

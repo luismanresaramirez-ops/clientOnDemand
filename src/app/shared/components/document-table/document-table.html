@@ -1,0 +1,87 @@
+<mat-card class="table-card">
+  <div class="table-header">
+    <div>
+      <h2>Résultats</h2>
+      <p>{{ dataSource.data.length }} document(s) trouvé(s)</p>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Code document</th>
+        <td mat-cell *matCellDef="let document">{{ document.code }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fileName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fichier</th>
+        <td mat-cell *matCellDef="let document">
+          <div class="file-cell">
+            <mat-icon>picture_as_pdf</mat-icon>
+            <span>{{ document.fileName }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="folder">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dossier</th>
+        <td mat-cell *matCellDef="let document">{{ document.folder }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="contractNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Contrat</th>
+        <td mat-cell *matCellDef="let document">{{ document.contractNumber }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="partnerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Partenaire</th>
+        <td mat-cell *matCellDef="let document">{{ document.partnerName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="subsidiary">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Filiale</th>
+        <td mat-cell *matCellDef="let document">{{ document.subsidiary }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="companyCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Société</th>
+        <td mat-cell *matCellDef="let document">{{ document.companyCode }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="creationDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date création</th>
+        <td mat-cell *matCellDef="let document">{{ document.creationDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
+        <td mat-cell *matCellDef="let document">
+          <mat-chip>{{ document.status }}</mat-chip>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let document">
+          <button mat-icon-button type="button" (click)="openDocument(document)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+
+          <button mat-icon-button type="button" (click)="downloadDocument(document)">
+            <mat-icon>download</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    showFirstLastButtons>
+  </mat-paginator>
+</mat-card>
