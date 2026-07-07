@@ -1,0 +1,52 @@
+<div class="login-page">
+  <mat-card class="login-card">
+    <div class="brand">
+        <img src="logo.jpg" alt="Renault" class="logo"/>
+      <h1>Renault</h1>
+      <p>Recherche de factures</p>
+    </div>
+
+    <form (ngSubmit)="onLogin()" class="login-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Login</mat-label>
+        <input
+          matInput
+          name="login"
+          [(ngModel)]="login"
+          autocomplete="username"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input
+          matInput
+          name="password"
+          [(ngModel)]="password"
+          [type]="hidePassword ? 'password' : 'text'"
+          autocomplete="current-password"
+          required
+        />
+
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword = !hidePassword"
+        >
+          <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        class="login-button"
+      >
+        Se connecter
+      </button>
+    </form>
+  </mat-card>
+</div>
