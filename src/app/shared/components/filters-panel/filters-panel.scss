@@ -72,3 +72,14 @@ mat-panel-title {
     flex-direction: column;
   }
 }
+
+.checkbox-field {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border: 1px solid #74777f;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: white;
+}

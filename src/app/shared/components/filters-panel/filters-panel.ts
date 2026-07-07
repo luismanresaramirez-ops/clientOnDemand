@@ -11,9 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-filters-panel',
+  standalone:true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -25,7 +27,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule
   ],
   templateUrl: './filters-panel.html',
   styleUrl: './filters-panel.scss',
@@ -41,7 +44,8 @@ export class FiltersPanel {
     contractNumber: [''],
     partnerName: [''],
     subsidiary: [''],
-    companyCode: ['']
+    companyCode: [''],
+    valide:[false]
   });
 
   folders = ['Tous', 'Factures', 'Contrats', 'Avoirs'];
@@ -52,7 +56,17 @@ export class FiltersPanel {
     console.log(this.form.value);
   }
 
-  reset(): void {
-    this.form.reset();
-  }
+reset(): void {
+  this.form.reset({
+    documentCode: '',
+    folderList: '',
+    creationDateFrom: '',
+    creationDateTo: '',
+    contractNumber: '',
+    partnerName: '',
+    subsidiary: '',
+    companyCode: '',
+    valide: false,
+  });
+}
 }

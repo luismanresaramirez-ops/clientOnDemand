@@ -7,7 +7,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatCard } from "@angular/material/card";
 import { MatCardModule } from '@angular/material/card';
 
 export interface DocumentItem {
@@ -20,10 +19,12 @@ export interface DocumentItem {
   companyCode: string;
   creationDate: string;
   status: string;
+  pdfUrl: string;
 }
 
 @Component({
   selector: 'app-document-table',
+  standalone: true,
   imports: [
     MatTableModule,
     MatPaginatorModule,
@@ -31,8 +32,8 @@ export interface DocumentItem {
     MatButtonModule,
     MatIconModule,
     MatChipsModule,
-    MatCard
-],
+    MatCardModule
+  ],
   templateUrl: './document-table.html',
   styleUrl: './document-table.scss'
 })
@@ -60,7 +61,8 @@ export class DocumentTable {
       subsidiary: 'Renault France',
       companyCode: 'FR01',
       creationDate: '07/07/2026',
-      status: 'Disponible'
+      status: 'En cours',
+      pdfUrl: 'exemple.pdf'
     },
     {
       code: 'FAC-2026-001246',
@@ -71,7 +73,8 @@ export class DocumentTable {
       subsidiary: 'Renault France',
       companyCode: 'FR01',
       creationDate: '06/07/2026',
-      status: 'Archivé'
+      status: 'Validé',
+      pdfUrl: 'exemple.pdf'
     }
   ]);
 
@@ -84,10 +87,13 @@ export class DocumentTable {
   }
 
   openDocument(document: DocumentItem): void {
-    console.log('Ouvrir document :', document);
+    window.open(document.pdfUrl, '_blank');
   }
 
-  downloadDocument(document: DocumentItem): void {
-    console.log('Télécharger document :', document);
+  downloadDocument(doc: DocumentItem): void {
+    const link = document.createElement('a');
+    link.href = doc.pdfUrl;
+    link.download = doc.fileName;
+    link.click();
   }
 }

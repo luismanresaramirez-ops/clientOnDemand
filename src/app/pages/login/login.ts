@@ -34,6 +34,8 @@ export class Login {
 
     // Ici plus tard :
     // appel Spring Boot ou fallback si Okta indisponible
-    this.router.navigate(['/search']);
+    if(this.login == "admin" && this.password == "1234") {
+      this.router.navigate(['/search']);
+    }
   }
 }
