@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -34,6 +34,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
   styleUrl: './filters-panel.scss',
 })
 export class FiltersPanel {
+   @Output() filtersChange = new EventEmitter<any>();
     private fb = new FormBuilder();
 
   form = this.fb.group({
@@ -54,19 +55,21 @@ export class FiltersPanel {
 
   search(): void {
     console.log(this.form.value);
+    this.filtersChange.emit(this.form.value);
   }
 
-reset(): void {
-  this.form.reset({
-    documentCode: '',
-    folderList: '',
-    creationDateFrom: '',
-    creationDateTo: '',
-    contractNumber: '',
-    partnerName: '',
-    subsidiary: '',
-    companyCode: '',
-    valide: false,
-  });
-}
+  reset(): void {
+    this.form.reset({
+      documentCode: '',
+      folderList: '',
+      creationDateFrom: '',
+      creationDateTo: '',
+      contractNumber: '',
+      partnerName: '',
+      subsidiary: '',
+      companyCode: '',
+      valide: false,
+    });
+    this.filtersChange.emit(this.form.value);
+  }
 }

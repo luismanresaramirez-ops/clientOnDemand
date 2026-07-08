@@ -1,13 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
-
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 
 export interface DocumentItem {
   code: string;
@@ -17,7 +16,7 @@ export interface DocumentItem {
   partnerName: string;
   subsidiary: string;
   companyCode: string;
-  creationDate: string;
+  creationDate: Date;
   status: string;
   pdfUrl: string;
 }
@@ -26,18 +25,21 @@ export interface DocumentItem {
   selector: 'app-document-table',
   standalone: true,
   imports: [
+    CommonModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatButtonModule,
+    MatCardModule,
     MatIconModule,
-    MatChipsModule,
-    MatCardModule
+    MatButtonModule,
+    MatChipsModule
   ],
   templateUrl: './document-table.html',
   styleUrl: './document-table.scss'
 })
-export class DocumentTable {
+export class DocumentTable implements AfterViewInit, OnChanges {
+  @Input() filters: any;
+
   displayedColumns: string[] = [
     'code',
     'fileName',
@@ -51,7 +53,7 @@ export class DocumentTable {
     'actions'
   ];
 
-  dataSource = new MatTableDataSource<DocumentItem>([
+  documents: DocumentItem[] = [
     {
       code: 'FAC-2026-001245',
       fileName: 'facture_001245.pdf',
@@ -60,7 +62,7 @@ export class DocumentTable {
       partnerName: 'Renault Retail Group',
       subsidiary: 'Renault France',
       companyCode: 'FR01',
-      creationDate: '07/07/2026',
+      creationDate: new Date('2026-07-07'),
       status: 'En cours',
       pdfUrl: 'exemple.pdf'
     },
@@ -72,11 +74,13 @@ export class DocumentTable {
       partnerName: 'Mobilize Financial Services',
       subsidiary: 'Renault France',
       companyCode: 'FR01',
-      creationDate: '06/07/2026',
+      creationDate: new Date('2026-07-06'),
       status: 'Validé',
       pdfUrl: 'exemple.pdf'
     }
-  ]);
+  ];
+
+  dataSource = new MatTableDataSource<DocumentItem>(this.documents);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -86,14 +90,55 @@ export class DocumentTable {
     this.dataSource.sort = this.sort;
   }
 
-  openDocument(document: DocumentItem): void {
-    window.open(document.pdfUrl, '_blank');
+  ngOnChanges(): void {
+    this.applyFilters();
+  }
+
+  applyFilters(): void {
+    const f = this.filters;
+
+    if (!f) {
+      this.dataSource.data = this.documents;
+      return;
+    }
+
+    this.dataSource.data = this.documents.filter(doc => {
+      const fromOk =
+        !f.creationDateFrom ||
+        doc.creationDate >= new Date(f.creationDateFrom);
+
+      const toOk =
+        !f.creationDateTo ||
+        doc.creationDate <= new Date(f.creationDateTo);
+
+      return (
+        (!f.documentCode || doc.code.toLowerCase().includes(f.documentCode.toLowerCase())) &&
+        (!f.folderList || f.folderList === 'Tous' || doc.folder === f.folderList) &&
+        (!f.contractNumber || doc.contractNumber.includes(f.contractNumber)) &&
+        (!f.partnerName || doc.partnerName.toLowerCase().includes(f.partnerName.toLowerCase())) &&
+        (!f.subsidiary || doc.subsidiary === f.subsidiary) &&
+        (!f.companyCode || doc.companyCode === f.companyCode) &&
+        (!f.valide || doc.status === 'Validé') &&
+        fromOk &&
+        toOk
+      );
+    });
+
+    this.paginator?.firstPage();
+  }
+  openDocument(doc: DocumentItem): void {
+    window.open(doc.pdfUrl, '_blank');
   }
 
   downloadDocument(doc: DocumentItem): void {
-    const link = document.createElement('a');
+    const link = window.document.createElement('a');
     link.href = doc.pdfUrl;
     link.download = doc.fileName;
     link.click();
+  }
+
+  private parseDate(date: string): Date {
+    const [day, month, year] = date.split('/').map(Number);
+    return new Date(year, month - 1, day);
   }
 }

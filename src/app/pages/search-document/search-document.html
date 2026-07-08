@@ -1,4 +1,4 @@
 <div class="search-page">
-  <app-filters-panel></app-filters-panel>
-  <app-document-table></app-document-table>
+  <app-filters-panel (filtersChange)="onFiltersChange($event)"></app-filters-panel>
+  <app-document-table [filters]="filters"></app-document-table>
 </div>

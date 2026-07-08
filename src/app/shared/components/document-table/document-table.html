@@ -51,7 +51,9 @@
 
       <ng-container matColumnDef="creationDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Date création</th>
-        <td mat-cell *matCellDef="let document">{{ document.creationDate }}</td>
+        <td mat-cell *matCellDef="let document">
+          {{ document.creationDate | date:'dd/MM/yyyy' }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
@@ -75,7 +77,15 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data-cell" [attr.colspan]="displayedColumns.length">
+          Aucun document trouvé avec ces filtres.
+        </td>
+      </tr>
+
     </table>
   </div>
 
