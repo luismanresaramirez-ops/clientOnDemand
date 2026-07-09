@@ -34,7 +34,7 @@ jobs:
         run: npm run build -- --configuration production --base-href /clientOnDemand/
 
       - name: Fix index for GitHub Pages
-        run: cp dist/clientOnDemand/browser/index.csr.html dist/clientOnDemand/browser/index.html
+        run: cp dist/clientOnDemandv2/browser/index.csr.html dist/clientOnDemandv2/browser/index.html
       
       - name: Debug dist
         run: ls -R dist
