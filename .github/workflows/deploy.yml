@@ -31,7 +31,7 @@ jobs:
         run: npm install
 
       - name: Build Angular
-        run: npm run build -- --configuration production --base-href /clientOnDemandv2/
+        run: npm run build -- --configuration production --base-href /clientOnDemand/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
