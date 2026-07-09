@@ -32,6 +32,9 @@ jobs:
 
       - name: Build Angular
         run: npm run build -- --configuration production --base-href /clientOnDemand/
+      
+      - name: Debug dist
+        run: ls -R dist
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
