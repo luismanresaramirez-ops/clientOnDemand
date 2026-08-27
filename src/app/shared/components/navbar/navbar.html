@@ -1,0 +1,25 @@
+<header class="navbar">
+  <a class="brand" routerLink="/search" aria-label="Retour à la recherche de documents">
+    <img class="brand-logo" src="logo.jpg" alt="Logo Renault" />
+
+    <span class="brand-text">
+      <span class="brand-title">
+        <strong>COD</strong>
+        <span> de RECETTE</span>
+      </span>
+      <span class="brand-subtitle">Client Léger OnDemand</span>
+    </span>
+  </a>
+
+  <nav class="navbar-actions" aria-label="Navigation principale">
+    <button mat-button type="button">
+      <mat-icon>help_outline</mat-icon>
+      <span>Aide</span>
+    </button>
+
+    <button mat-button type="button" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Déconnexion</span>
+    </button>
+  </nav>
+</header>

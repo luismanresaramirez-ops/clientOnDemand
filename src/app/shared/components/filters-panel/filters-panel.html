@@ -1,13 +1,21 @@
 <mat-card class="search-card">
-  <div class="header">
-    <div>
-      <h2>Recherche de documents</h2>
-      <p>Rechercher un document par code et affiner avec des filtres.</p>
-    </div>
+  <!-- <div class="header">
+  <div>
+    <h2>Recherche de documents</h2>
+    <p>Rechercher un document par code et affiner avec des filtres.</p>
   </div>
+</div> -->
 
   <form [formGroup]="form" (ngSubmit)="search()">
     <div class="main-search">
+      <mat-form-field appearance="outline">
+        <mat-label>Dossiers</mat-label>
+        <mat-select formControlName="folderList">
+          <mat-option *ngFor="let folder of folders" [value]="folder">
+            {{ folder }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Code document</mat-label>
         <input matInput formControlName="documentCode" placeholder="Ex : FAC-2026-001245" />
@@ -29,15 +37,6 @@
       </mat-expansion-panel-header>
 
       <div class="filters-grid">
-        <mat-form-field appearance="outline">
-          <mat-label>Liste de dossiers</mat-label>
-          <mat-select formControlName="folderList">
-            <mat-option *ngFor="let folder of folders" [value]="folder">
-              {{ folder }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
         <mat-form-field appearance="outline">
           <mat-label>Date de création - du</mat-label>
           <input matInput [matDatepicker]="fromPicker" formControlName="creationDateFrom" />
@@ -79,14 +78,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        
-
-      <div class="checkbox-field">
-        <mat-checkbox formControlName="valide">
-          Validé
-        </mat-checkbox>
-      </div>
-
       </div>
 
       <div class="actions">

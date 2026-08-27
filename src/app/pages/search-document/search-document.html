@@ -1,4 +1,6 @@
-<div class="search-page">
-  <app-filters-panel (filtersChange)="onFiltersChange($event)"></app-filters-panel>
+<app-navbar></app-navbar>
+
+<main class="search-page">
+  <app-tab-search (filtersChange)="onFiltersChange($event)"></app-tab-search>
   <app-document-table [filters]="filters"></app-document-table>
-</div>
+</main>

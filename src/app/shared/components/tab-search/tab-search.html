@@ -1,0 +1,23 @@
+<mat-tab-group (selectedIndexChange)="onTabChange($event)">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="icon">thumb_up</mat-icon>
+      Visualisation
+    </ng-template>
+    <app-filters-panel
+      [valide]="false"
+      (filtersChange)="onFiltersChange($event)"
+    ></app-filters-panel>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="icon validation-icon">check</mat-icon>
+      Validation
+    </ng-template>
+    <app-filters-panel
+      [valide]="true"
+      (filtersChange)="onFiltersChange($event)"
+    ></app-filters-panel>
+  </mat-tab>
+</mat-tab-group>

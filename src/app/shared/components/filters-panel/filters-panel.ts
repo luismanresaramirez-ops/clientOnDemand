@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-filters-panel',
@@ -27,15 +26,16 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MatCheckboxModule
+    MatNativeDateModule
   ],
   templateUrl: './filters-panel.html',
   styleUrl: './filters-panel.scss',
 })
 export class FiltersPanel {
-   @Output() filtersChange = new EventEmitter<any>();
-    private fb = new FormBuilder();
+  @Input() valide = false;
+  @Output() filtersChange = new EventEmitter<any>();
+
+  private fb = new FormBuilder();
 
   form = this.fb.group({
     documentCode: [''],
@@ -45,17 +45,15 @@ export class FiltersPanel {
     contractNumber: [''],
     partnerName: [''],
     subsidiary: [''],
-    companyCode: [''],
-    valide:[false]
+    companyCode: ['']
   });
 
-  folders = ['Tous', 'Factures', 'Contrats', 'Avoirs'];
+  folders = ['Après vente Financement Unitaire', 'Beta93 Etats', 'CCL liste', 'CCL et fourniseurs France', 'Courriers Industriels', 'FUSE', 'LISE'];
   subsidiaries = ['Renault France', 'Renault Espagne', 'Renault Italie'];
   companyCodes = ['FR01', 'ES01', 'IT01'];
 
   search(): void {
-    console.log(this.form.value);
-    this.filtersChange.emit(this.form.value);
+    this.emitFilters();
   }
 
   reset(): void {
@@ -67,9 +65,15 @@ export class FiltersPanel {
       contractNumber: '',
       partnerName: '',
       subsidiary: '',
-      companyCode: '',
-      valide: false,
+      companyCode: ''
     });
-    this.filtersChange.emit(this.form.value);
+    this.emitFilters();
+  }
+
+  private emitFilters(): void {
+    this.filtersChange.emit({
+      ...this.form.value,
+      valide: this.valide,
+    });
   }
 }

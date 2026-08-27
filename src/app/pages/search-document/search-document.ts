@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FiltersPanel } from '../../shared/components/filters-panel/filters-panel';
 import { DocumentTable } from '../../shared/components/document-table/document-table';
+import { Navbar } from '../../shared/components/navbar/navbar';
+import { TabSearch } from '../../shared/components/tab-search/tab-search';
 
 export interface DocumentFilters {
   documentCode?: string;
@@ -16,7 +17,7 @@ export interface DocumentFilters {
 
 @Component({
   selector: 'app-search-document',
-  imports: [ FiltersPanel, DocumentTable ],
+  imports: [DocumentTable, Navbar, TabSearch],
   templateUrl: './search-document.html',
   styleUrl: './search-document.scss',
 })

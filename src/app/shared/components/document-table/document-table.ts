@@ -103,6 +103,9 @@ export class DocumentTable implements AfterViewInit, OnChanges {
     }
 
     this.dataSource.data = this.documents.filter(doc => {
+      const isValidated = doc.status === 'Validé';
+      const validationOk = f.valide == null || isValidated === f.valide;
+
       const fromOk =
         !f.creationDateFrom ||
         doc.creationDate >= new Date(f.creationDateFrom);
@@ -118,7 +121,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
         (!f.partnerName || doc.partnerName.toLowerCase().includes(f.partnerName.toLowerCase())) &&
         (!f.subsidiary || doc.subsidiary === f.subsidiary) &&
         (!f.companyCode || doc.companyCode === f.companyCode) &&
-        (!f.valide || doc.status === 'Validé') &&
+        validationOk &&
         fromOk &&
         toOk
       );
