@@ -19,6 +19,6 @@ export class TabSearch {
   }
 
   onTabChange(index: number): void {
-    this.filtersChange.emit({ valide: index === 1 });
+    this.filtersChange.emit({ valide: index === 1 ? true : undefined });
   }
 }

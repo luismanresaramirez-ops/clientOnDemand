@@ -15,4 +15,8 @@ export class Navbar {
   logout(): void {
     this.router.navigate(['/login']);
   }
+
+    openHelp(): void {
+      window.open("help.pdf", '_blank');
+    }
 }

@@ -17,7 +17,7 @@ export interface DocumentItem {
   subsidiary: string;
   companyCode: string;
   creationDate: Date;
-  status: string;
+  status: boolean;
   pdfUrl: string;
 }
 
@@ -63,7 +63,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault France',
       companyCode: 'FR01',
       creationDate: new Date('2026-07-07'),
-      status: 'En cours',
+      status: true,
       pdfUrl: 'exemple.pdf'
     },
     {
@@ -75,7 +75,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault France',
       companyCode: 'FR01',
       creationDate: new Date('2026-07-06'),
-      status: 'En cours',
+      status: false,
       pdfUrl: 'exemple.pdf'
     },
     {
@@ -87,8 +87,8 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault Digital',
       companyCode: 'FR02',
       creationDate: new Date('2026-07-05'),
-      status: 'Validée',
-      pdfUrl: 'exemple.pdf'
+      status: true,
+      pdfUrl: 'exemple.pdf',
     },
     {
       code: 'FAC-2026-001248',
@@ -99,7 +99,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault France',
       companyCode: 'FR01',
       creationDate: new Date('2026-07-04'),
-      status: 'Payée',
+      status: true,
       pdfUrl: 'exemple.pdf'
     },
     {
@@ -111,7 +111,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault España',
       companyCode: 'ES01',
       creationDate: new Date('2026-07-03'),
-      status: 'Rejetée',
+      status: false,
       pdfUrl: 'exemple.pdf'
     },
     {
@@ -123,7 +123,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault France',
       companyCode: 'FR01',
       creationDate: new Date('2026-07-02'),
-      status: 'En cours',
+      status: false,
       pdfUrl: 'exemple.pdf'
     },
     {
@@ -135,7 +135,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault Digital',
       companyCode: 'FR02',
       creationDate: new Date('2026-07-01'),
-      status: 'Validée',
+      status: true,
       pdfUrl: 'exemple.pdf'
     },
     {
@@ -147,7 +147,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault Deutschland',
       companyCode: 'DE01',
       creationDate: new Date('2026-06-29'),
-      status: 'Payée',
+      status: true,
       pdfUrl: 'exemple.pdf'
     },
     {
@@ -159,7 +159,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault Digital',
       companyCode: 'FR02',
       creationDate: new Date('2026-06-28'),
-      status: 'En cours',
+      status: true,
       pdfUrl: 'exemple.pdf'
     },
     {
@@ -171,7 +171,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
       subsidiary: 'Renault France',
       companyCode: 'FR01',
       creationDate: new Date('2026-06-25'),
-      status: 'En attente',
+      status: true,
       pdfUrl: 'exemple.pdf'
     }
   ];
@@ -199,8 +199,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
     }
 
     this.dataSource.data = this.documents.filter(doc => {
-      const isValidated = doc.status === 'Validé';
-      const validationOk = f.valide == null || isValidated === f.valide;
+      const validationOk = f.valide == null || doc.status === f.valide;
 
       const fromOk =
         !f.creationDateFrom ||

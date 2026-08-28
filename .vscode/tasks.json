@@ -37,6 +37,23 @@
           }
         }
       }
+    },
+    {
+      "label": "Angular: debug document-table tests",
+      "type": "shell",
+      "command": "npm test -- --debug --include src/app/shared/components/document-table/document-table.spec.ts --watch=false",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "angular-tests",
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "> Building|Building application bundle",
+          "endsPattern": "Debugger listening on"
+        }
+      }
     }
   ]
 }

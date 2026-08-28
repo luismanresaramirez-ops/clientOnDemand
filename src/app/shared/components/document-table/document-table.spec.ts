@@ -19,4 +19,21 @@ describe('DocumentTable', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display only validated documents when valide is true', () => {
+    component.filters = { valide: true };
+
+    component.ngOnChanges();
+
+    expect(component.dataSource.data.length).toBe(7);
+    expect(component.dataSource.data.every(document => document.status === true)).toBe(true);
+  });
+
+  it('should display all documents when no status filter is set', () => {
+    component.filters = { valide: undefined };
+
+    component.ngOnChanges();
+
+    expect(component.dataSource.data).toEqual(component.documents);
+  });
 });

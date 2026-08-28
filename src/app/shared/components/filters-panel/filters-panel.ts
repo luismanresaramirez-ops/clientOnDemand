@@ -32,7 +32,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   styleUrl: './filters-panel.scss',
 })
 export class FiltersPanel {
-  @Input() valide = false;
+  @Input() valide?: boolean;
   @Output() filtersChange = new EventEmitter<any>();
 
   private fb = new FormBuilder();
