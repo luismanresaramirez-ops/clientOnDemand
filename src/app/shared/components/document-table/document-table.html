@@ -70,7 +70,13 @@
             <mat-icon>visibility</mat-icon>
           </button>
 
-          <button mat-icon-button type="button" (click)="downloadDocument(document)">
+          <button
+            mat-icon-button
+            type="button"
+            data-tour-download
+            [attr.aria-label]="'Télécharger ' + document.fileName"
+            (click)="downloadDocument(document)"
+          >
             <mat-icon>download</mat-icon>
           </button>
         </td>

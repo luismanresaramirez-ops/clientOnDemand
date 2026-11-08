@@ -8,8 +8,15 @@
   align-items: flex-start;
   gap: 24px;
 
-  app-tab-search {
+  .search-sidebar {
     flex: 0 0 350px;
+    display: grid;
+    gap: 12px;
+    justify-items: start;
+
+    app-tab-search {
+      width: 100%;
+    }
   }
 
   app-document-table {
@@ -24,7 +31,7 @@
     flex-direction: column;
     padding: 16px;
 
-    app-tab-search,
+    .search-sidebar,
     app-document-table {
       width: 100%;
       flex: none;

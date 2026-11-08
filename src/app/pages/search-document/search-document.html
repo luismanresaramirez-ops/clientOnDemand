@@ -1,6 +1,14 @@
 <app-navbar></app-navbar>
 
 <main class="search-page">
-  <app-tab-search (filtersChange)="onFiltersChange($event)"></app-tab-search>
+  <div class="search-sidebar">
+    <button mat-stroked-button type="button" [attr.aria-busy]="tourLoading()" (click)="startTour()">
+      Guide interactif
+    </button>
+    @if (tourLoadFailed()) {
+      <p role="status">Le guide n’a pas pu se charger. Réessayez.</p>
+    }
+    <app-tab-search (filtersChange)="onFiltersChange($event)"></app-tab-search>
+  </div>
   <app-document-table [filters]="filters"></app-document-table>
 </main>

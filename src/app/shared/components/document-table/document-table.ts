@@ -41,6 +41,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
   @Input() filters: any;
 
   displayedColumns: string[] = [
+    'actions',
     'code',
     'fileName',
     'folder',
@@ -49,8 +50,7 @@ export class DocumentTable implements AfterViewInit, OnChanges {
     'subsidiary',
     'companyCode',
     'creationDate',
-    'status',
-    'actions'
+    'status'
   ];
 
   documents: DocumentItem[] = [

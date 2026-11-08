@@ -4,6 +4,7 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@use 'shepherd.js/dist/css/shepherd.css';
 
 html {
   height: 100%;
@@ -37,3 +38,13 @@ body {
   height: 100%;
 }
 /* You can add global styles to this file, and also import other style files */
+
+.shepherd-element.document-tour-step {
+  // Let the Angular Material dropdown appear above the guide.
+  z-index: 900;
+}
+
+.document-tour-target {
+  outline: 2px solid #1746c7;
+  outline-offset: -2px;
+}

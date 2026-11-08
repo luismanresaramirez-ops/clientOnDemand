@@ -48,7 +48,7 @@ export class FiltersPanel {
     companyCode: ['']
   });
 
-  folders = ['Après vente Financement Unitaire', 'Beta93 Etats', 'CCL liste', 'CCL et fourniseurs France', 'Courriers Industriels', 'FUSE', 'LISE'];
+  folders = ['Après vente Financement Unitaire', 'Avoir', 'Beta93 Etats', 'CCL liste', 'CCL et fourniseurs France', 'Courriers Industriels', 'Factures', 'FUSE', 'LISE'];
   subsidiaries = ['Renault France', 'Renault Espagne', 'Renault Italie'];
   companyCodes = ['FR01', 'ES01', 'IT01'];
 
